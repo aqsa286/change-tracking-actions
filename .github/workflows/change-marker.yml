@@ -25,29 +25,4 @@ jobs:
           deploymentType: "ROLLING"
           groupId: "Workshop App Release: ${{ github.ref_name }}"
           user: "${{ github.actor }}"
-      # This step creates a new Change Tracking Marker for App456
-      - name: App456 Marker
-        uses: newrelic/deployment-marker-action@v2.3.0
-        with:
-          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
-          guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID_App456 }}
-          version: "${{ env.RELEASE_VERSION }}"
-          changelog: "https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md"
-          commit: "${{ github.sha }}"
-          description: "Automated Release via Github Actions"
-          deploymentType: "ROLLING"
-          groupId: "Workshop App Release: ${{ github.ref_name }}"
-          user: "${{ github.actor }}"
-      # This step creates a new Change Tracking Marker for App789
-      - name: App789 Marker
-        uses: newrelic/deployment-marker-action@v2.3.0
-        with:
-          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
-          guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID_App789 }}
-          version: "${{ env.RELEASE_VERSION }}"
-          changelog: "https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md"
-          commit: "${{ github.sha }}"
-          description: "Automated Release via Github Actions"
-          deploymentType: "ROLLING"
-          groupId: "Workshop App Release: ${{ github.ref_name }}"
-          user: "${{ github.actor }}"
+
