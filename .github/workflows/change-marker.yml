@@ -1,23 +1,32 @@
-name: Change Tracking Marker
+name: New Relic Change Tracking
+
 on:
-  workflow_dispatch:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
 
 jobs:
-  newrelic:
+  track-changes:
     runs-on: ubuntu-latest
-    name: New Relic
+
     steps:
-      # This step builds a var with the release tag value to use later
-      - name: Set Release Version from Tag
-        run: echo "RELEASE_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
-      # This step creates a new Change Tracking Marker
-      - name: New Relic Application Deployment Marker
-        uses: newrelic/deployment-marker-action@v2.2.0
-        with:
-          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
-          region: "US"
-          guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID }}
-          version: "${{ env.RELEASE_VERSION }}"
-          user: "${{ github.actor }}"
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Configure New Relic CLI
+        run: |
+          newrelic profile configure --license-key ${{ secrets.NEW_RELIC_API_KEY }}
+          newrelic profile default
+        env:
+          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+
+      - name: Install New Relic CLI
+        run: |
+          curl -s https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash
+
+      - name: Track Changes
+        run: |
+          newrelic deployment --user ${{ secrets.GITHUB_ACTOR }} \
+            --revision ${{ github.sha }} \
+            --changelog "Changes for this deployment" \
+            --applicationId ${{ secrets.NEW_RELIC_APPLICATION_ID }}
