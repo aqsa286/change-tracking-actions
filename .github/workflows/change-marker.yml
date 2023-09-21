@@ -15,10 +15,10 @@ jobs:
 
       - name: Configure New Relic CLI
         run: |
-          newrelic profile configure --license-key ${{ NEW_RELIC_USER_API_KEY }}
+          newrelic profile configure --license-key ${{ NRAK-59A6OKHCGZ3PFY9S5Q91K5YI7KG }}
           newrelic profile default
         env:
-          NEW_RELIC_API_KEY: ${{ NEW_RELIC_USER_API_KEY }}
+          NEW_RELIC_API_KEY: ${{ NRAK-59A6OKHCGZ3PFY9S5Q91K5YI7KG }}
 
       - name: Install New Relic CLI
         run: |
@@ -29,4 +29,4 @@ jobs:
           newrelic deployment --user ${{ secrets.GITHUB_ACTOR }} \
             --revision ${{ github.sha }} \
             --changelog "Changes for this deployment" \
-            --applicationId ${{ secrets.NEW_RELIC_APPLICATION_ID }}
+            --applicationId ${{ 1090861745 }}
