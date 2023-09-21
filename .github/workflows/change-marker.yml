@@ -15,10 +15,10 @@ jobs:
 
       - name: Configure New Relic CLI
         run: |
-          newrelic profile configure --license-key ${{ secrets.NEW_RELIC_API_KEY }}
+          newrelic profile configure --license-key ${{ NEW_RELIC_USER_API_KEY }}
           newrelic profile default
         env:
-          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+          NEW_RELIC_API_KEY: ${{ NEW_RELIC_USER_API_KEY }}
 
       - name: Install New Relic CLI
         run: |
